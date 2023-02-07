@@ -12,6 +12,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.local
+/.history
 
-package-lock.json
-yarn.lock
+# package-lock.json
+# yarn.lock

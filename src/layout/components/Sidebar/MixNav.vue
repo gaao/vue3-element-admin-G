@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue';
-import { RouterLink, useRoute, useRouter, RouteRecordRaw } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 import {
   ElDropdown,
   ElDropdownItem,
@@ -33,6 +33,7 @@ onMounted(() => {
   console.log('origin routes', permissionStore.routes);
   permissionStore.routes.forEach(item => {
     const { children, ...newItem } = item;
+    console.log(children);
     routes.push(newItem);
   });
   console.log('routes', routes);
@@ -66,20 +67,9 @@ function logout() {
 
 <template>
   <div class="horizontal-header">
-    <el-menu
-      class="horizontal-header-menu"
-      :default-active="activeMenu"
-      :background-color="variables.menuBg"
-      :text-color="variables.menuText"
-      :active-text-color="variables.menuActiveText"
-      mode="horizontal"
-    >
-      <sidebar-item
-        v-for="route in routes"
-        :item="route"
-        :key="route.path"
-        :base-path="route.path"
-      />
+    <el-menu class="horizontal-header-menu" :default-active="activeMenu" :background-color="variables.menuBg"
+      :text-color="variables.menuText" :active-text-color="variables.menuActiveText" mode="horizontal">
+      <sidebar-item v-for="route in routes" :item="route" :key="route.path" :base-path="route.path" />
     </el-menu>
 
     <div class="horizontal-header-right">
@@ -96,10 +86,7 @@ function logout() {
 
       <el-dropdown trigger="click">
         <div class="flex justify-center items-center pr-[20px]">
-          <img
-            :src="userStore.avatar + '?imageView2/1/w/80/h/80'"
-            class="w-[40px] h-[40px] rounded-lg"
-          />
+          <img :src="userStore.avatar + '?imageView2/1/w/80/h/80'" class="w-[40px] h-[40px] rounded-lg" />
           <CaretBottom class="w-3 h-3" />
         </div>
 

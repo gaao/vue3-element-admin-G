@@ -62,7 +62,7 @@ function initChart() {
     legend: {
       x: 'center',
       y: 'bottom',
-      data: ['Show', 'Click', 'Visit', 'Inquiry', 'Order']
+      data: ['展示', '点击', '查看', '咨询', '下单']
     },
 
     series: [
@@ -96,11 +96,11 @@ function initChart() {
           }
         },
         data: [
-          { value: 60, name: 'Visit' },
-          { value: 40, name: 'Inquiry' },
-          { value: 20, name: 'Order' },
-          { value: 80, name: 'Click' },
-          { value: 100, name: 'Show' }
+          { value: 60, name: '查看' },
+          { value: 40, name: '咨询' },
+          { value: 20, name: '下单' },
+          { value: 80, name: '点击' },
+          { value: 100, name: '展示' }
         ]
       }
     ]
@@ -128,4 +128,6 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

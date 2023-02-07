@@ -15,7 +15,7 @@ import {
   updateDictItem,
   deleteDictItems
 } from '@/api/dict';
-import { Search, Plus, Edit, Refresh, Delete } from '@element-plus/icons-vue';
+import { Search, Plus, Refresh, Delete } from '@element-plus/icons-vue';
 import { DictItem, DictItemForm, DictItemQuery } from '@/api/dict/types';
 
 const props = defineProps({
@@ -180,34 +180,19 @@ onMounted(() => {
         <el-input v-model="queryParams.name" placeholder="数据标签" clearable />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" :icon="Search" @click="handleQuery"
-          >搜索</el-button
-        >
+        <el-button type="primary" :icon="Search" @click="handleQuery">搜索</el-button>
         <el-button :icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
     <el-card shadow="hover">
       <template #header>
-        <el-button type="success" :icon="Plus" @click="handleAdd"
-          >新增</el-button
-        >
-        <el-button
-          type="danger"
-          :icon="Delete"
-          :disabled="ids.length === 0"
-          @click="handleDelete"
-          >删除</el-button
-        >
+        <el-button type="success" :icon="Plus" @click="handleAdd">新增</el-button>
+        <el-button type="danger" :icon="Delete" :disabled="ids.length === 0" @click="handleDelete">删除</el-button>
       </template>
 
       <!-- 数据表格 -->
-      <el-table
-        :data="dictItemList"
-        v-loading="loading"
-        border
-        @selection-change="handleSelectionChange"
-      >
+      <el-table :data="dictItemList" v-loading="loading" border @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="50" />
         <el-table-column label="数据标签" prop="name" />
         <el-table-column label="数据值" prop="value" />
@@ -219,55 +204,28 @@ onMounted(() => {
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template #default="scope">
-            <el-button type="primary" link @click="handleUpdate(scope.row)"
-              >编辑</el-button
-            >
-            <el-button type="danger" link @click.stop="handleDelete(scope.row)"
-              >删除</el-button
-            >
+            <el-button type="primary" link @click="handleUpdate(scope.row)">编辑</el-button>
+            <el-button type="danger" link @click.stop="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <pagination
-        v-if="total > 0"
-        :total="total"
-        v-model:page="queryParams.pageNum"
-        v-model:limit="queryParams.pageSize"
-        @pagination="handleQuery"
-      />
+      <pagination v-if="total > 0" :total="total" v-model:page="queryParams.pageNum"
+        v-model:limit="queryParams.pageSize" @pagination="handleQuery" />
     </el-card>
 
     <!-- 表单弹窗 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      @close="cancel"
-    >
-      <el-form
-        ref="dataFormRef"
-        :model="formData"
-        :rules="rules"
-        label-width="100px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" @close="cancel">
+      <el-form ref="dataFormRef" :model="formData" :rules="rules" label-width="100px">
         <el-form-item label="字典类型名称">{{ typeName }}</el-form-item>
         <el-form-item label="数据项名称" prop="name">
-          <el-input
-            v-model="formData.name"
-            placeholder="请输入字典数据项名称"
-          />
+          <el-input v-model="formData.name" placeholder="请输入字典数据项名称" />
         </el-form-item>
         <el-form-item label="数据项值" prop="value">
           <el-input v-model="formData.value" placeholder="请输入字典数据项值" />
         </el-form-item>
         <el-form-item label="排序" prop="sort">
-          <el-input-number
-            v-model="formData.sort"
-            style="width: 80px"
-            controls-position="right"
-            :min="0"
-          />
+          <el-input-number v-model="formData.sort" style="width: 80px" controls-position="right" :min="0" />
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-radio-group v-model="formData.status">

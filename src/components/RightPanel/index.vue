@@ -10,7 +10,7 @@ import { Close, Setting } from '@element-plus/icons-vue';
 import { ElColorPicker } from 'element-plus';
 
 const settingsStore = useSettingsStore();
-
+console.log(settingsStore);
 const show = ref(false);
 
 defineProps({
@@ -71,13 +71,9 @@ onBeforeUnmount(() => {
   <div ref="rightPanel" :class="{ show: show }">
     <div class="right-panel-background" />
     <div class="right-panel">
-      <div
-        class="right-panel__button"
-        :style="{
-          top: buttonTop + 'px'
-        }"
-        @click="show = !show"
-      >
+      <div class="right-panel__button" :style="{
+        top: buttonTop + 'px'
+      }" @click="show = !show">
         <Close class="icon" v-show="show" />
         <Setting class="icon" v-show="!show" />
       </div>
@@ -154,6 +150,7 @@ onBeforeUnmount(() => {
   pointer-events: auto;
   cursor: pointer;
   color: #fff;
+  background-color: var(--el-color-primary-dark);
   line-height: 48px;
 
   i {

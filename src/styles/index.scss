@@ -1,5 +1,7 @@
 @import 'src/styles/variables.module';
+// @import '../styles/variables.module.scss';
 @import 'src/styles/element-plus';
+// @import '../styles/element-plus.scss';
 @import './sidebar.scss';
 @import './tailwind.scss';
 
@@ -23,3 +25,9 @@ html,body,#app{
 svg{
   display: inline-block;
 }
+// button,
+// [type='button'],
+// [type='reset'],
+// [type='submit'] {
+//   background-color: var(--el-color-primary-dark);
+// }

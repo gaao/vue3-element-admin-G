@@ -5,16 +5,11 @@
 -->
 
 <template>
-  <el-upload
-    v-model:file-list="fileList"
-    list-type="picture-card"
-    :before-upload="handleBeforeUpload"
-    :http-request="handleUpload"
-    :on-remove="handleRemove"
-    :on-preview="handlePreview"
-    :limit="props.limit"
-  >
-    <el-icon><Plus /></el-icon>
+  <el-upload v-model:file-list="fileList" list-type="picture-card" :before-upload="handleBeforeUpload"
+    :http-request="handleUpload" :on-remove="handleRemove" :on-preview="handlePreview" :limit="props.limit">
+    <el-icon>
+      <Plus />
+    </el-icon>
   </el-upload>
 
   <el-dialog v-model="dialogVisible">
@@ -137,7 +132,9 @@ function handleBeforeUpload(file: UploadRawFile) {
  * 图片预览
  */
 const handlePreview: UploadProps['onPreview'] = uploadFile => {
-  dialogImageUrl.value = uploadFile.url!;
+  if (uploadFile.url) {
+    dialogImageUrl.value = uploadFile.url;
+  }
   dialogVisible.value = true;
 };
 </script>

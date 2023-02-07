@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { useSettingsStore } from '@/store/modules/settings';
 const settingsStore = useSettingsStore();
+console.log(settingsStore);
 </script>
 
 <style>

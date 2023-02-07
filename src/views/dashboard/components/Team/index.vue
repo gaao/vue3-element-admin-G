@@ -9,28 +9,14 @@
         <el-tab-pane label="开发者" name="1">
           <div class="developer" ref="dev_wrapper">
             <ul class="developer__container">
-              <li
-                class="developer__item"
-                v-for="(item, index) in developers"
-                :key="index"
-              >
+              <li class="developer__item" v-for="(item, index) in developers" :key="index">
                 <div class="developer__inner">
-                  <el-image
-                    class="developer__img"
-                    :src="item.imgUrl"
-                    :preview-src-list="[item.imgUrl]"
-                  ></el-image>
+                  <el-image class="developer__img" :src="item.imgUrl" :preview-src-list="[item.imgUrl]"></el-image>
                   <div class="developer__info">
                     <span class="developer__nickname">{{ item.nickname }}</span>
                     <div class="developer__position">
-                      <el-tag
-                        v-for="(position, i) in item.positions"
-                        :type="(colors[i % colors.length] as any)"
-                        :class="i !== 0 ? 'f-ml' : ''"
-                        size="small"
-                        :key="i"
-                        >{{ position }}</el-tag
-                      >
+                      <el-tag v-for="(position, i) in item.positions" :type="(colors[i % colors.length] as any)"
+                        :class="i !== 0 ? 'f-ml' : ''" size="small" :key="i">{{ position }}</el-tag>
                     </div>
                     <div class="developer__homepage">
                       <a :href="item.homepage" target="_blank">个人主页</a>
@@ -45,13 +31,9 @@
 
         <el-tab-pane label="交流群" name="2">
           <div class="group">
-            <el-image
-              class="group-img"
-              src="https://www.youlai.tech/files/blog/youlaiqun.png"
-              :preview-src-list="[
-                'https://www.youlai.tech/files/blog/youlaiqun.png'
-              ]"
-            />
+            <el-image class="group-img" src="https://www.youlai.tech/files/blog/youlaiqun.png" :preview-src-list="[
+              'https://www.youlai.tech/files/blog/youlaiqun.png'
+            ]" />
             <div class="group-tip">
               群二维码过期可添加开发者微信由其拉入群，备注「有来」即可。
             </div>
@@ -210,6 +192,7 @@ watchEffect(() => {
 
     .join {
       overflow: hidden;
+
       p {
         font-weight: bold;
       }

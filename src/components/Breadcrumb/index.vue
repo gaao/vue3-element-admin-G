@@ -1,20 +1,13 @@
 <template>
-  <el-breadcrumb
-    separator-class="el-icon-arrow-right"
-    class="h-[50px] flex items-center"
-  >
+  <el-breadcrumb :separator-icon="ArrowRight" class="h-[50px] flex items-center">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item, index) in breadcrumbs" :key="item.path">
-        <span
-          v-if="
-            item.redirect === 'noredirect' || index === breadcrumbs.length - 1
-          "
-          class="text-[#97a8be]"
-          >{{ generateTitle(item.meta.title) }}</span
-        >
-        <a v-else @click.prevent="handleLink(item)">
+        <span v-if="item.redirect === 'noredirect' || index === breadcrumbs.length - 1
+        " class="text-[#97a8be]">{{ generateTitle(item.meta.title) }}</span>
+        <a v-else href="item.path" @click.prevent="handleLink(item)">
           {{ generateTitle(item.meta.title) }}
         </a>
+        <!-- {{ item.path }} -->
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -26,6 +19,7 @@ import { useRoute, RouteLocationMatched } from 'vue-router';
 import { compile } from 'path-to-regexp';
 import router from '@/router';
 import { generateTitle } from '@/utils/i18n';
+import { ArrowRight } from '@element-plus/icons-vue'
 
 const currentRoute = useRoute();
 const pathCompile = (path: string) => {

@@ -5,7 +5,8 @@ import { AppMain, Navbar, Settings, TagsView } from './components/index';
 import Sidebar from './components/Sidebar/index.vue';
 import RightPanel from '@/components/RightPanel/index.vue';
 
-import { DeviceType, useAppStore } from '@/store/modules/app';
+// import { DeviceType, useAppStore } from '@/store/modules/app';
+import { useAppStore } from '@/store/modules/app';
 import { useSettingsStore } from '@/store/modules/settings';
 
 const { width } = useWindowSize();
@@ -57,10 +58,7 @@ function handleOutsideClick() {
 <template>
   <div :class="classObj" class="app-wrapper">
     <!-- 手机设备 && 侧边栏 → 显示遮罩层 -->
-    <div
-      v-if="classObj.mobile && classObj.openSidebar"
-      @click="handleOutsideClick"
-    ></div>
+    <div v-if="classObj.mobile && classObj.openSidebar" @click="handleOutsideClick"></div>
 
     <Sidebar class="sidebar-container" />
 
@@ -96,6 +94,7 @@ function handleOutsideClick() {
     top: 0;
   }
 }
+
 .drawer-bg {
   background: #000;
   opacity: 0.3;
@@ -114,9 +113,11 @@ function handleOutsideClick() {
   width: calc(100% - #{$sideBarWidth});
   transition: width 0.28s;
 }
+
 .hideSidebar .fixed-header {
   width: calc(100% - 54px);
 }
+
 .mobile .fixed-header {
   width: 100%;
 }

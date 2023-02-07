@@ -3,17 +3,10 @@
     <div class="search">
       <el-form ref="queryFormRef" :model="queryParams" :inline="true">
         <el-form-item label="关键字" prop="keywords">
-          <el-input
-            v-model="queryParams.keywords"
-            placeholder="菜单名称"
-            clearable
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.keywords" placeholder="菜单名称" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" :icon="Search" @click="handleQuery"
-            >搜索</el-button
-          >
+          <el-button type="primary" :icon="Search" @click="handleQuery">搜索</el-button>
           <el-button :icon="Refresh" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
@@ -22,54 +15,30 @@
     <!-- 数据表格 -->
     <el-card shadow="never">
       <template #header>
-        <el-button type="success" :icon="Plus" @click="handleAdd"
-          >新增</el-button
-        >
+        <el-button type="success" :icon="Plus" @click="handleAdd">新增</el-button>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="menuList"
-        highlight-current-row
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        @row-click="handleRowClick"
-        row-key="id"
-        border
-        default-expand-all
-      >
+      <el-table v-loading="loading" :data="menuList" highlight-current-row
+        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" @row-click="handleRowClick" row-key="id"
+        border default-expand-all>
         <el-table-column label="菜单名称">
           <template #default="scope">
-            <svg-icon
-              :icon-class="
-                scope.row.type === 'BUTTON' ? 'button' : scope.row.icon
-              "
-            />
+            <svg-icon :icon-class="
+              scope.row.type === 'BUTTON' ? 'button' : scope.row.icon
+            " />
             {{ scope.row.name }}
           </template>
         </el-table-column>
 
         <el-table-column label="菜单类型" align="center" width="150">
           <template #default="scope">
-            <el-tag v-if="scope.row.type === 'CATALOG'" type="warning"
-              >目录</el-tag
-            >
-            <el-tag v-if="scope.row.type === 'MENU'" type="success"
-              >菜单</el-tag
-            >
-            <el-tag v-if="scope.row.type === 'BUTTON'" type="danger"
-              >按钮</el-tag
-            >
-            <el-tag v-if="scope.row.type === 'EXTLINK'" type="info"
-              >外链</el-tag
-            >
+            <el-tag v-if="scope.row.type === 'CATALOG'" type="warning">目录</el-tag>
+            <el-tag v-if="scope.row.type === 'MENU'" type="success">菜单</el-tag>
+            <el-tag v-if="scope.row.type === 'BUTTON'" type="danger">按钮</el-tag>
+            <el-tag v-if="scope.row.type === 'EXTLINK'" type="info">外链</el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          label="权限标识"
-          align="center"
-          width="200"
-          prop="perm"
-        />
+        <el-table-column label="权限标识" align="center" width="200" prop="perm" />
 
         <el-table-column label="状态" align="center" width="150">
           <template #default="scope">
@@ -80,38 +49,20 @@
 
         <el-table-column label="排序" align="center" width="100" prop="sort" />
 
-        <el-table-column
-          label="创建时间"
-          align="center"
-          width="200"
-          prop="createTime"
-        >
+        <el-table-column label="创建时间" align="center" width="200" prop="createTime">
         </el-table-column>
 
-        <el-table-column
-          label="修改时间"
-          align="center"
-          width="200"
-          prop="updateTime"
-        >
+        <el-table-column label="修改时间" align="center" width="200" prop="updateTime">
         </el-table-column>
 
         <el-table-column label="操作" align="center" width="200">
           <template #default="scope">
-            <el-button
-              type="success"
-              link
-              @click.stop="handleAdd(scope.row)"
-              v-if="scope.row.type == 'CATALOG' || scope.row.type == 'MENU'"
-            >
+            <el-button type="success" link @click.stop="handleAdd(scope.row)"
+              v-if="scope.row.type == 'CATALOG' || scope.row.type == 'MENU'">
               新增
             </el-button>
 
-            <el-button
-              type="primary"
-              link
-              @click.stop="handleUpdate(scope.row)"
-            >
+            <el-button type="primary" link @click.stop="handleUpdate(scope.row)">
               编辑
             </el-button>
             <el-button type="danger" link @click.stop="handleDelete(scope.row)">
@@ -122,27 +73,11 @@
       </el-table>
     </el-card>
     <!-- dialog -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      @close="cancel"
-      width="750px"
-    >
-      <el-form
-        ref="dataFormRef"
-        :model="formData"
-        :rules="rules"
-        label-width="100px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" @close="cancel" width="750px">
+      <el-form ref="dataFormRef" :model="formData" :rules="rules" label-width="100px">
         <el-form-item label="父级菜单" prop="parentId">
-          <el-tree-select
-            v-model="formData.parentId"
-            placeholder="选择上级菜单"
-            :data="menuOptions"
-            filterable
-            check-strictly
-            :render-after-expand="false"
-          />
+          <el-tree-select v-model="formData.parentId" placeholder="选择上级菜单" :data="menuOptions" filterable check-strictly
+            :render-after-expand="false" />
         </el-form-item>
 
         <el-form-item label="菜单名称" prop="name">
@@ -150,10 +85,7 @@
         </el-form-item>
 
         <el-form-item label="菜单类型" prop="type">
-          <el-radio-group
-            v-model="formData.type"
-            @change="handleMenuTypeChange"
-          >
+          <el-radio-group v-model="formData.type" @change="handleMenuTypeChange">
             <el-radio label="CATALOG">目录</el-radio>
             <el-radio label="MENU">菜单</el-radio>
             <el-radio label="BUTTON">按钮</el-radio>
@@ -161,72 +93,32 @@
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item
-          v-if="formData.type == 'EXTLINK'"
-          label="外链地址"
-          prop="path"
-        >
+        <el-form-item v-if="formData.type == 'EXTLINK'" label="外链地址" prop="path">
           <el-input v-model="formData.path" placeholder="请输入外链完整路径" />
         </el-form-item>
 
-        <el-form-item
-          label="路由路径"
-          prop="path"
-          v-if="formData.type == 'CATALOG' || formData.type == 'MENU'"
-        >
-          <el-input
-            v-if="formData.type == 'CATALOG'"
-            v-model="formData.path"
-            placeholder="/system  (目录以/开头)"
-          />
+        <el-form-item label="路由路径" prop="path" v-if="formData.type == 'CATALOG' || formData.type == 'MENU'">
+          <el-input v-if="formData.type == 'CATALOG'" v-model="formData.path" placeholder="/system  (目录以/开头)" />
           <el-input v-else v-model="formData.path" placeholder="user" />
         </el-form-item>
 
         <!-- 组件页面完整路径 -->
-        <el-form-item
-          v-if="formData.type == 'MENU'"
-          label="页面路径"
-          prop="component"
-        >
-          <el-input
-            v-model="formData.component"
-            placeholder="system/user/index"
-            style="width: 95%"
-          >
-            <template v-if="formData.parentId != '0'" #prepend
-              >src/views/</template
-            >
+        <el-form-item v-if="formData.type == 'MENU'" label="页面路径" prop="component">
+          <el-input v-model="formData.component" placeholder="system/user/index" style="width: 95%">
+            <template v-if="formData.parentId != '0'" #prepend>src/views/</template>
             <template v-if="formData.parentId != '0'" #append>.vue</template>
           </el-input>
         </el-form-item>
 
         <!-- 权限标识 -->
-        <el-form-item
-          v-if="formData.type == 'BUTTON'"
-          label="权限标识"
-          prop="perm"
-        >
+        <el-form-item v-if="formData.type == 'BUTTON'" label="权限标识" prop="perm">
           <el-input v-model="formData.perm" placeholder="sys:user:add" />
         </el-form-item>
 
-        <el-form-item
-          label="图标"
-          prop="icon"
-          v-if="formData.type !== 'BUTTON'"
-        >
-          <el-popover
-            ref="popoverRef"
-            placement="bottom-start"
-            :width="570"
-            trigger="click"
-          >
+        <el-form-item label="图标" prop="icon" v-if="formData.type !== 'BUTTON'">
+          <el-popover ref="popoverRef" placement="bottom-start" :width="570" trigger="click">
             <template #reference>
-              <el-input
-                v-model="formData.icon"
-                placeholder="点击选择图标"
-                readonly
-                @click="iconSelectVisible = true"
-              >
+              <el-input v-model="formData.icon" placeholder="点击选择图标" readonly @click="iconSelectVisible = true">
                 <template #prefix>
                   <svg-icon :icon-class="formData.icon" />
                 </template>
@@ -249,12 +141,7 @@
         </el-form-item>
 
         <el-form-item label="排序" prop="sort">
-          <el-input-number
-            v-model="formData.sort"
-            style="width: 100px"
-            controls-position="right"
-            :min="0"
-          />
+          <el-input-number v-model="formData.sort" style="width: 100px" controls-position="right" :min="0" />
         </el-form-item>
       </el-form>
 
@@ -271,7 +158,7 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted, toRefs } from 'vue';
 
-import { Search, Plus, Edit, Refresh, Delete } from '@element-plus/icons-vue';
+import { Search, Plus, Refresh } from '@element-plus/icons-vue';
 import { ElForm, ElMessage, ElMessageBox, ElPopover } from 'element-plus';
 
 import { MenuQuery, MenuForm, Menu } from '@/api/menu/types';
